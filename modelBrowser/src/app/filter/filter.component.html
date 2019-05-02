@@ -1,3 +1,59 @@
-<p>
-  filter works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Filter</mat-card-title>
+  </mat-card-header>
+
+
+
+  <mat-form-field>
+    <mat-label>make</mat-label>
+    <select [(ngModel)]='make' matNativeControl>
+      <option value=''> </option>
+      <option *ngFor='let make of makeList' ngDefaultControl>{{make}} </option>
+    </select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>year</mat-label>
+
+    <select [(ngModel)]='year' matNativeControl>
+      <option value=''> </option>
+      <option *ngFor='let year of yearList' ngDefaultControl>{{year}} </option>
+    </select>
+  </mat-form-field>
+
+  <button mat-button (click)='refreshData()'>Refresh</button>
+  <br> <br>
+</mat-card>
+
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Results</mat-card-title>
+  </mat-card-header>
+
+
+  <table size='100%'>
+    <th>id </th>
+    <th>year</th>
+    <th>make</th>
+    <th>model</th>
+
+    <tr *ngFor='let vehicle of vehicleList '>
+      <td>{{vehicle.id}} </td>
+      <td>{{vehicle.year}}</td>
+      <td>{{vehicle.make}}</td>
+      <td>{{vehicle.model}}</td>
+
+    </tr>
+  </table>
+
+  <br>
+  <button mat-button [disabled]='hasNoNext' (click)='previous()'>previous page</button>
+  <button mat-button [disabled]='hasNoNext' (click)='next()'>next page</button>
+
+</mat-card>
+
+
+<button mat-button routerLink='/about'> back to 'about' </button>
