@@ -42,7 +42,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatInputModule
   ],
-  providers: [FilterComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
