@@ -19,47 +19,34 @@ interface IVehicle {
 export class FilterComponent implements OnInit {
   public url = 'https://vehicle-data.azurewebsites.net/api';
 
-  public makeList: string[];
-  public yearList: string[];
+  public makeList: string[] = [];
+  public yearList: string[] = [];
 
-  @Output() public vehicleList: IVehicle[];
+  public vehicleList: IVehicle[] = [];
 
 
   // ngModel -> get input from the filter
-  @Input() public make = '';
-  @Input() public year = '';
+  public make = '';
+  public year = '';
 
   public offset = 0;
 
-
-
-
   constructor(private httpClient: HttpClient) { }
-
 
   ngOnInit() {
     // call function to get all the makes and years for the comboboxes
     this.getMake();
     this.getYear();
-
-
+    this.refreshData();
   }
 
-  get hasNoNext() {
 
-    if (this.vehicleList.length === 10) {
-      return false;
-    }
 
-    return true;
-
-  }
 
   async getMake() {
     const makes = await this.httpClient.get<string[]>(this.url + '/makes').toPromise();
     this.makeList = makes;
   }
-
 
   async getYear() {
     const years = await this.httpClient.get<string[]>(this.url + '/years').toPromise();
@@ -74,6 +61,7 @@ export class FilterComponent implements OnInit {
     }
 
     if (this.make === '' && this.year !== undefined) {    // filter after year
+
       // tslint:disable-next-line:max-line-length
       this.vehicleList = await this.httpClient.get<IVehicle[]>(this.url + '/models?year=' + this.year + '&offset=' + this.offset + '& fetch=10').toPromise();
     }
@@ -106,5 +94,12 @@ export class FilterComponent implements OnInit {
 
   }
 
+  // function for disabeling buttons
+  get hasNext() {
+    if (this.vehicleList.length === 10) {
+      return false;
+    }
+    return true;
+  }
 
 }

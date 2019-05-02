@@ -33,7 +33,6 @@
     <mat-card-title>Results</mat-card-title>
   </mat-card-header>
 
-
   <table size='100%'>
     <th>id </th>
     <th>year</th>
@@ -45,15 +44,13 @@
       <td>{{vehicle.year}}</td>
       <td>{{vehicle.make}}</td>
       <td>{{vehicle.model}}</td>
-
     </tr>
   </table>
 
   <br>
-  <button mat-button [disabled]='hasNoNext' (click)='previous()'>previous page</button>
-  <button mat-button [disabled]='hasNoNext' (click)='next()'>next page</button>
+  <button mat-button [disabled]='offset == 0' (click)='previous()'>previous page</button>
+  <button mat-button [disabled]='hasNext' (click)='next()'>next page</button>
 
 </mat-card>
-
 
 <button mat-button routerLink='/about'> back to 'about' </button>
